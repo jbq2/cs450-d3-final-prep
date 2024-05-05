@@ -68,7 +68,13 @@ class ScatterPlot extends Component {
             .join('g')
             .attr('id', 'plot-group');
         const plotGroup = svgContainer.select('#plot-group')
-            .attr('transform', `translate(${margin.left}, 0)`);
+            /**
+             * Note that when we are performing a translation, we are in the plot group
+             * selection.  The plot group selection is already within the margin-adjusted
+             * svg container, and therefore, should not need anymore adjustments.  This
+             * explains why we translate to (0, 0), and not (margin.left, margin.top) 
+             */
+            .attr('transform', `translate(0, 0)`);
 
         /**
          * Below we create a scaling function for the x axis.  The `domain` represents
@@ -77,7 +83,11 @@ class ScatterPlot extends Component {
          */
         const xData = data.map(d => d.total_bill);
         const xScale = d3.scaleLinear()
-            .domain([0, d3.max(xData)])         // use domain for actual range of data
+            /**
+             * Note that we are adding 2 to the max domain.  This is to ensure that there is
+             * enough room for the dot to fully fit.  Without the +2, the dot will be cut off.
+             */
+            .domain([0, d3.max(xData) + 2])         // use domain for actual range of data
             .range([margin.left, svgWidth]);    // use range to set the pixel/screen size of the scale
         
         /**

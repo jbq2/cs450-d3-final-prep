@@ -59,7 +59,13 @@ class LineChart extends Component {
             .join('g')
             .attr('id', 'line-chart-plot-group');
         const plotGroup = svgContainer.select('#line-chart-plot-group')
-            .attr('transform', `translate(${margin.left}, 0)`);
+            /**
+             * Note that when we are performing a translation, we are in the plot group
+             * selection.  The plot group selection is already within the margin-adjusted
+             * svg container, and therefore, should not need anymore adjustments.  This
+             * explains why we translate to (0, 0), and not (margin.left, margin.top) 
+             */
+            .attr('transform', `translate(0, 0)`);
         
         const xData = rawData.map(d => d[0]);
         const xScale = d3.scaleLinear()

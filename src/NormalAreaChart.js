@@ -62,7 +62,7 @@ class NormalAreaChart extends Component {
             .join('g')
             .attr('id', 'area-chart-plot-group');
         const plotGroup = svgContainer.select('#area-chart-plot-group')
-            .attr('transform', `translate(${margin.left}, 0)`);
+            .attr('transform', `translate(0, 0)`);
 
         /**
          * instead of starting the axes at 0, start at the minimum of each axis
