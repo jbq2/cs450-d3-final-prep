@@ -4,6 +4,7 @@ import * as d3 from 'd3';
 import tips from './tips.csv';
 import ScatterPlot from './ScatterPlot';
 import LineChart from './LineChart';
+import NormalAreaChart from './NormalAreaChart';
 
 class App extends Component {
 
@@ -36,6 +37,7 @@ class App extends Component {
             <div>
                 <ScatterPlot data={ this.state.data } />
                 <LineChart data={ this.state.data } />
+                <NormalAreaChart data={ this.state.data } />
             </div>
         );
     }
