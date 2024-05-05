@@ -3,6 +3,7 @@ import { Component } from 'react';
 import * as d3 from 'd3';
 import tips from './tips.csv';
 import ScatterPlot from './ScatterPlot';
+import LineChart from './LineChart';
 
 class App extends Component {
 
@@ -34,6 +35,7 @@ class App extends Component {
         return (
             <div>
                 <ScatterPlot data={ this.state.data } />
+                <LineChart data={ this.state.data } />
             </div>
         );
     }

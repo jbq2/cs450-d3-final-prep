@@ -14,7 +14,6 @@ class ScatterPlot extends Component {
     componentDidUpdate() {
         console.log('ScatterPlot component updated');
         const data = this.props.data;
-        console.log(data);
 
         /** 
          * Here we provide the margins that will be used for the plot itself.  We create 
@@ -40,7 +39,7 @@ class ScatterPlot extends Component {
          * Below we apply the width and height to the svg by selecting the correct
          * svg element--in this case, we select by id.
          */
-        const svgContainer = d3.select('#svg-container')
+        const svgContainer = d3.select('#svg-scatter-plot-container')
             .attr('width', svgWidth)
             .attr('height', svgHeight);
 
@@ -54,7 +53,7 @@ class ScatterPlot extends Component {
             .attr('x', svgWidth / 2)
             .attr('stroke', 'red')
             .attr('font-size', 15)
-            .text('Total Bill vs Tips');
+            .text('Scatter Plot: Total Bill vs Tips');
 
         /**
          * Below block creates a g element (group), which will encompass the actual 
@@ -143,7 +142,7 @@ class ScatterPlot extends Component {
     render() {
         return (
             <div>
-                <svg id='svg-container' />
+                <svg id='svg-scatter-plot-container' />
             </div>
         );
     }
