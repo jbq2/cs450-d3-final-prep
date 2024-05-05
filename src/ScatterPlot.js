@@ -17,10 +17,11 @@ class ScatterPlot extends Component {
         console.log(data);
 
         /** 
-         * Here we provide the margins that will be used for the plot itself
+         * Here we provide the margins that will be used for the plot itself.  We create 
+         * extra room at the top for title space.
          */
         const margin = {
-            top: 10,
+            top: 50,
             bottom: 10,
             left: 30,
             right: 30
@@ -42,6 +43,18 @@ class ScatterPlot extends Component {
         const svgContainer = d3.select('#svg-container')
             .attr('width', svgWidth)
             .attr('height', svgHeight);
+
+        /**
+         * Here we create the title text.
+         */
+        svgContainer.selectAll('text')
+            .data([0])
+            .join('text')
+            .attr('y', 30)
+            .attr('x', svgWidth / 2)
+            .attr('stroke', 'red')
+            .attr('font-size', 15)
+            .text('Total Bill vs Tips');
 
         /**
          * Below block creates a g element (group), which will encompass the actual 
