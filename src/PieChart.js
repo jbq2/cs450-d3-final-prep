@@ -41,7 +41,7 @@ class PieChart extends Component {
                 d => d.day
             )
             .map(d => { return {day: d[0], avg_total_bill: d[1]} });
-        console.log(avgPerDay);
+        // console.log(avgPerDay);
 
         /**
          * To make the pie chart colorfull, a color map is created to map certain days
@@ -69,7 +69,7 @@ class PieChart extends Component {
          * needs to be made the value for a pie piece.
          */
         const arcData = pieGenerator(avgPerDay);
-        console.log(arcData);
+        // console.log(arcData);
 
         /**
          * `d3.arc()` is a function that creates an arc generation function.  The way

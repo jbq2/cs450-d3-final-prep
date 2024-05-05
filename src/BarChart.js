@@ -50,7 +50,7 @@ class BarChart extends Component {
             d => d.reduce((total, curr) => total + curr.total_bill, 0) / d.length,
             d => d.day
         );
-        console.log(avgPerDay);
+        // console.log(avgPerDay);
 
         // const avgPerDay = this.getAveragePerDay(rawData, 'total_bill');
 

@@ -122,7 +122,7 @@ class NormalAreaChart extends Component {
             return {x: d.total_bill, y: d.tip};
         });
         formattedData.sort((a, b) => a.x - b.x);
-        console.log(formattedData);
+        // console.log(formattedData);
 
         /**
          * Generated the area chart data using the `formattedData` and 

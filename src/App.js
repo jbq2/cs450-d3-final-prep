@@ -7,6 +7,7 @@ import LineChart from './LineChart';
 import NormalAreaChart from './NormalAreaChart';
 import BarChart from './BarChart';
 import PieChart from './PieChart';
+import TreeChart from './TreeChart';
 
 class App extends Component {
 
@@ -42,6 +43,7 @@ class App extends Component {
                 <NormalAreaChart data={ this.state.data } />
                 <BarChart data={ this.state.data } />
                 <PieChart data={ this.state.data } />
+                <TreeChart />
             </div>
         );
     }

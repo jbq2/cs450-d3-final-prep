@@ -21,7 +21,7 @@ class LineChart extends Component {
          * where total bill is the x coordinate and tip is the y coordinate.
          */
         const propsData = this.props.data;
-        console.log(propsData);
+        // console.log(propsData);
         const rawData = propsData.map(d => [d.total_bill, d.tip]);
         
         /** 
