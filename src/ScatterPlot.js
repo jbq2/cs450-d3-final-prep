@@ -1,19 +1,41 @@
 import { Component } from "react";
 import * as d3 from 'd3';
+import { sliderBottom } from 'd3-simple-slider';
+import tips from './tips.csv';
 
 class ScatterPlot extends Component {
+
+    sliderChanged = false;
+
     constructor(props) {
         super(props);
-        this.state = {data: []};
+        this.state = {
+            data: [],
+            originalData: [],
+        };
     }
     
     componentDidMount() {
+        let self = this;
+        this.sliderChanged = false;
+        d3
+            .csv(tips, function(d) {
+                return {
+                    total_bill: parseFloat(d.total_bill),
+                    tip: parseFloat(d.tip),
+                    size: parseInt(d.size),
+                    day: d.day
+                }
+            })
+            .then(function(csvData) {
+                self.setState({data: csvData, originalData: csvData});
+            });
         console.log('ScatterPlot component mounted');
     }
 
     componentDidUpdate() {
         console.log('ScatterPlot component updated');
-        const data = this.props.data;
+        const data = this.state.data;
 
         /** 
          * Here we provide the margins that will be used for the plot itself.  We create 
@@ -147,6 +169,47 @@ class ScatterPlot extends Component {
             .attr('cx', d => xScale(d.total_bill))
             .attr('cy', d => yScale(d.tip))
             .attr('fill', 'red');
+        
+        /**
+         * The code has slightly changed such that we are now directly accessing the 
+         * csv data through the csv file rather than through props.  However, this
+         * is important because we must obtain the original data to display the
+         * original range of the data.
+         * 
+         * To create a slider, we must use one of the functions offered by the 
+         * d3-simple-slider package.  In this case, we use sliderBottom, which creates
+         * a range slider such that the ticks are below the line.  An important method
+         * of the sliderBottom() function is the `.on`, which accepts a hook and an
+         * arrow function.  The arrow function will determine what kind of logic will
+         * be performed once the slider has been changed.
+         * 
+         * The logic is as follows: on slider change, `val` will contain the new range
+         * of the `total_bill` data.  Based on this, we filter the originalData such 
+         * that the result data contains only the points where the `total_bill` field
+         * is within the range of `val`.  This result data is used to set the new
+         * state of the component.
+         */
+        const totalBillMin = d3.min(this.state.originalData, d => d.total_bill);
+        const totalBillMax = d3.max(this.state.originalData, d => d.total_bill);
+        const sliderRange = sliderBottom()
+            .min(totalBillMin)
+            .max(totalBillMax)
+            .width(300)
+            .default([totalBillMin, totalBillMax])
+            .on('onchange', val => {
+                const filteredData = this.state.originalData.filter(d => d.total_bill >= val[0] && d.total_bill <= val[1]);
+                // this.sliderChanged = true;
+                this.setState({data: filteredData});
+            });
+
+        plotGroup.selectAll('#scatter-plot-slider')
+            .data([0])
+            .join('g')
+            .attr('id', 'scatter-plot-slider')
+            .attr('width', 300)
+            .attr('height', 100)
+            .attr('transform', `translate(50, 100)`)
+            .call(sliderRange);
     }
     
     render() {
