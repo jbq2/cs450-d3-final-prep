@@ -9,6 +9,7 @@ import BarChart from './BarChart';
 import PieChart from './PieChart';
 import TreeChart from './TreeChart';
 import StackedAreaChart from './StackedAreaChart';
+import HorizontalBarChart from './HorizontalBarChart';
 
 class App extends Component {
 
@@ -46,6 +47,7 @@ class App extends Component {
                 <PieChart data={ this.state.data } />
                 <TreeChart />
                 <StackedAreaChart data={ this.state.data } />
+                <HorizontalBarChart data={ this.state.data } />
             </div>
         );
     }
