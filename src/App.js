@@ -39,7 +39,7 @@ class App extends Component {
     render() {
         return (
             <div>
-                <ScatterPlot data={ this.state.data } />
+                <ScatterPlot data={ this.state.data } originalData={ this.state.data } />
                 <LineChart data={ this.state.data } />
                 <NormalAreaChart data={ this.state.data } />
                 <BarChart data={ this.state.data } />
